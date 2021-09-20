@@ -56,7 +56,7 @@ void KBMatrixProcessor::setOnPress(void(*onPress)(int, KeyLayout, KeyLayoutState
 }
 
 int KBMatrixProcessor::calculateArrayPosition(int currentNumCol, int currentNumRow) {
-    return (currentNumRow * this->numRow) + (currentNumCol);
+    return (this->numCol * currentNumRow) + currentNumCol;
 }
 
 void KBMatrixProcessor::poll() {
@@ -67,17 +67,17 @@ void KBMatrixProcessor::poll() {
 
     // Initialize INPUT_PULLUP for Column
     for(int i = 0; i < numRow; i++) {
-        pinMode(this->pinRow[i], INPUT_PULLUP);
+        pinMode(this->pinRow[i], INPUT_PULLDOWN);
     }
 
     // Initialize OUTPUT for Column
     for(int i = 0; i < numCol; i++) {
         pinMode(this->pinCol[i], OUTPUT);
-        digitalWrite(this->pinCol[i], LOW);
+        digitalWrite(this->pinCol[i], HIGH);
 
         // Read Value
         for(int j = 0; j < numRow; j++) {
-            int state = !digitalRead(this->pinRow[j]);
+            int state = digitalRead(this->pinRow[j]);
             int index = calculateArrayPosition(i, j);
 
             if(this->state[index] != state) {
@@ -90,7 +90,6 @@ void KBMatrixProcessor::poll() {
         }
 
         // End Pulse
-        digitalWrite(this->pinCol[i], HIGH);
-        pinMode(this->pinCol[i], INPUT);
+        digitalWrite(this->pinCol[i], LOW);
     }
 }

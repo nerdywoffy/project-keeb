@@ -19,7 +19,7 @@ const int NUMBER_OF_COLUMNS = 5;
 // ROW_PINS Number of Row Pins that are included on a single project
 int ROW_PINS[NUMBER_OF_ROWS] = {13, 12, 14, 27};
 // COLUMN_PINS Number of Column Pins that are included on a single project
-int COLUMN_PINS[NUMBER_OF_COLUMNS] = {15, 2, 4, 16, 17};
+int COLUMN_PINS[NUMBER_OF_COLUMNS] = {15, 2, 4, 5, 18};
 
 
 // keys Mapping of keyboard
