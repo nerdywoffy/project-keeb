@@ -1,0 +1,1 @@
+void process_select_all_delete();
