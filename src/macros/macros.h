@@ -1,1 +1,1 @@
-void process_select_all_delete();
+void summon_tasque_manager(BleKeyboard *bleKeyboard);

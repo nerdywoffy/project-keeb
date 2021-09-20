@@ -33,7 +33,11 @@ void onSingleKeyPressed(int index, KeyLayout whatKey, KeyLayoutState whatState) 
 }
 
 void onMacroKeyPressed(int index, KeyLayout whatKey, KeyLayoutState whatState) {
-
+   if(whatState == KeyLayoutState::On) {
+     if(whatKey.func != NULL) {
+       whatKey.func(&bleKeyboard);
+     }
+   }
 }
 
 

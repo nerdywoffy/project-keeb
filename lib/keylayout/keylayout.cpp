@@ -1,4 +1,5 @@
 #include "keylayout.h"
+#include <BleKeyboard.h>
 
 // _None a function that shortcut KeyLayout object creation with KeyLayoutType::None
 // used to make layout.h more "humanly-readable"
@@ -20,7 +21,7 @@ KeyLayout _Chord(int key_one, int key_two, int key_three, int key_four) {
 
 // _Macro a function that shortcut KeyLayout object creation with KeyLayoutType::Macro
 // used to make layout.h more "humanly-readable"
-KeyLayout _Macro(void (*func)()) {
+KeyLayout _Macro(void (*func)(BleKeyboard*)) {
     // ! This aren't implemented yet.
     return KeyLayout{KeyLayoutType::Macro, {}, func};
 }
