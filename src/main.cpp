@@ -3,9 +3,11 @@
 #include "layout.h"
 #include "../lib/keyboard_matrix_processor/keyboard_matrix_processor.h"
 #include "../lib/keylayout/keylayout.h"
+#include "../lib/encoder/encoder.h"
 
 KBMatrixProcessor kbmInstance;
 BleKeyboard bleKeyboard;
+Encoder encoder;
 
 void onChordKeyPressed(int index, KeyLayout whatKey, KeyLayoutState whatState) {
   // For chord key, let's pretend we're pressing fast enough and release at the same time
@@ -64,6 +66,19 @@ void onKeyPressed(int index, KeyLayout whatKey, KeyLayoutState whatState) {
   }
 }
 
+void onEncoderRotated(EncoderMovement encMovement) {
+  switch (encMovement) {
+    case EncoderMovement::Left:
+      bleKeyboard.press(ENCODER_KEY_A);
+      bleKeyboard.release(ENCODER_KEY_A);
+      break;
+    case EncoderMovement::Right:
+      bleKeyboard.press(ENCODER_KEY_B);
+      bleKeyboard.release(ENCODER_KEY_B);
+      break;
+  }
+}
+
 void setup() {
   Serial.begin(115200);
 
@@ -83,9 +98,20 @@ void setup() {
 
   // kbmInstance.debugKeyboardLayout();
   kbmInstance.start();
-}
 
+  // Setup encoder, if there's any
+  if(ENCODER_ENABLED) {
+    encoder = Encoder(ENCODER_PIN_A, ENCODER_PIN_B);
+    encoder.setDebounce(8);
+    encoder.setOffset(8);
+    encoder.setCallback(&onEncoderRotated);
+  }
+}
 
 void loop() {
   kbmInstance.poll();
-}
+
+  if(ENCODER_ENABLED) {  
+    encoder.poll();
+  }
+} 
