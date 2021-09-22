@@ -1,4 +1,4 @@
-#include <BleKeyboard.h>
+#include "../ESP32-BLE-KeyboardMouse/BleKeyboardMouse.h"
 
 #ifndef KEYLAYOUT
 #define KEYLAYOUT
@@ -15,13 +15,13 @@ enum KeyLayoutType { None = 0, Single, Chord, Macro };
 struct KeyLayout {
     KeyLayoutType type;
     int keys[4];
-    void (*func)(BleKeyboard*);
+    void (*func)(BleKeyboardMouse*);
 };
 
 KeyLayout _None();
 KeyLayout _Single(int keys);
 KeyLayout _Chord(int key_one, int key_two, int key_three, int key_four);
-KeyLayout _Macro(void (*func)(BleKeyboard*));
+KeyLayout _Macro(void (*func)(BleKeyboardMouse*));
 
 
 #endif

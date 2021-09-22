@@ -1,12 +1,12 @@
 #include <Arduino.h>
-#include <BleKeyboard.h>
+#include "../lib/ESP32-BLE-KeyboardMouse/BleKeyboardMouse.h"
 #include "layout.h"
 #include "../lib/keyboard_matrix_processor/keyboard_matrix_processor.h"
 #include "../lib/keylayout/keylayout.h"
 #include "../lib/encoder/encoder.h"
 
 KBMatrixProcessor kbmInstance;
-BleKeyboard bleKeyboard;
+BleKeyboardMouse bleKeyboardMouse;
 Encoder encoder;
 
 void onChordKeyPressed(int index, KeyLayout whatKey, KeyLayoutState whatState) {
@@ -17,27 +17,27 @@ void onChordKeyPressed(int index, KeyLayout whatKey, KeyLayoutState whatState) {
         continue;
       }
 
-      bleKeyboard.press(whatKey.keys[i]);    
+      bleKeyboardMouse.press(whatKey.keys[i]);    
     }
     
     delay(100);
-    bleKeyboard.releaseAll();
+    bleKeyboardMouse.releaseAll();
   }
 }
 
 void onSingleKeyPressed(int index, KeyLayout whatKey, KeyLayoutState whatState) {
   Serial.printf("Sending key %d\n",whatKey.keys[0]);
   if(whatState == KeyLayoutState::Off) {
-    bleKeyboard.release(whatKey.keys[0]);
+    bleKeyboardMouse.release(whatKey.keys[0]);
   } else {
-    bleKeyboard.press(whatKey.keys[0]);
+    bleKeyboardMouse.press(whatKey.keys[0]);
   }
 }
 
 void onMacroKeyPressed(int index, KeyLayout whatKey, KeyLayoutState whatState) {
    if(whatState == KeyLayoutState::On) {
      if(whatKey.func != NULL) {
-       whatKey.func(&bleKeyboard);
+       whatKey.func(&bleKeyboardMouse);
      }
    }
 }
@@ -46,7 +46,7 @@ void onMacroKeyPressed(int index, KeyLayout whatKey, KeyLayoutState whatState) {
 void onKeyPressed(int index, KeyLayout whatKey, KeyLayoutState whatState) {
   Serial.printf("Got key at index %d with type %d = State %d\n", index, whatKey.type, whatState);
 
-  if(!bleKeyboard.isConnected()) {
+  if(!bleKeyboardMouse.isConnected()) {
     Serial.printf("No bluetooth device connected. exiting.\n");
     return;
   }
@@ -69,12 +69,12 @@ void onKeyPressed(int index, KeyLayout whatKey, KeyLayoutState whatState) {
 void onEncoderRotated(EncoderMovement encMovement) {
   switch (encMovement) {
     case EncoderMovement::Left:
-      bleKeyboard.press(ENCODER_KEY_A);
-      bleKeyboard.release(ENCODER_KEY_A);
+      // bleKeyboardMouse.press(ENCODER_KEY_A);
+      // bleKeyboardMouse.release(ENCODER_KEY_A);
+      bleKeyboardMouse.mouseMove(0,0,1);
       break;
     case EncoderMovement::Right:
-      bleKeyboard.press(ENCODER_KEY_B);
-      bleKeyboard.release(ENCODER_KEY_B);
+      bleKeyboardMouse.mouseMove(0,0,-1);
       break;
   }
 }
@@ -83,9 +83,10 @@ void setup() {
   Serial.begin(115200);
 
   // Start Bluetooth
-  bleKeyboard.begin();
-  bleKeyboard.setName("Project Keeb");
+  bleKeyboardMouse.begin();
+  bleKeyboardMouse.setName("Project Keeb");
 
+  
   kbmInstance = KBMatrixProcessor(NUMBER_OF_COLUMNS, NUMBER_OF_ROWS, COLUMN_PINS, ROW_PINS);
   kbmInstance.setKeyboardLayout(keys);
 
@@ -103,7 +104,7 @@ void setup() {
   if(ENCODER_ENABLED) {
     encoder = Encoder(ENCODER_PIN_A, ENCODER_PIN_B);
     encoder.setDebounce(8);
-    encoder.setOffset(8);
+    encoder.setOffset(4);
     encoder.setCallback(&onEncoderRotated);
   }
 }

@@ -1,1 +1,1 @@
-void summon_tasque_manager(BleKeyboard *bleKeyboard);
+void summon_tasque_manager(BleKeyboardMouse *bleKeyboardMouse);

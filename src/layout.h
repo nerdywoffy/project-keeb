@@ -33,9 +33,9 @@ KeyLayout keys[NUMBER_OF_ROWS*NUMBER_OF_COLUMNS] = {
 const bool ENCODER_ENABLED = true;
 
 // ENCODER_PIN_A Encoder Pin A
-int ENCODER_PIN_A = 23;
+int ENCODER_PIN_A = 22;
 // ENCODER_PIN_B Encoder Pin B
-int ENCODER_PIN_B = 22;
+int ENCODER_PIN_B = 21;
 
 // ENCODER_KEY_A Encoder Key A
 const uint8_t *ENCODER_KEY_A = KEY_MEDIA_VOLUME_DOWN;

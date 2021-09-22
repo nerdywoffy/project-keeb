@@ -1,21 +1,21 @@
 #include <Arduino.h>
-#include <BleKeyboard.h>
+#include "../../lib/ESP32-BLE-KeyboardMouse/BleKeyboardMouse.h"
 
-void summon_tasque_manager(BleKeyboard* bleKeyboard) {
+void summon_tasque_manager(BleKeyboardMouse* bleKeyboardMouse) {
     // Send CTRL+ALT+DELETE
-    bleKeyboard->press(KEY_LEFT_CTRL);
-    bleKeyboard->press(KEY_LEFT_ALT);
-    bleKeyboard->press(KEY_DELETE);
-    bleKeyboard->releaseAll();
+    bleKeyboardMouse->press(KEY_LEFT_CTRL);
+    bleKeyboardMouse->press(KEY_LEFT_ALT);
+    bleKeyboardMouse->press(KEY_DELETE);
+    bleKeyboardMouse->releaseAll();
     delay(500);
 
     for(int i = 0; i < 3; i++) {
-        bleKeyboard->press(KEY_DOWN_ARROW);
-        bleKeyboard->release(KEY_DOWN_ARROW);
+        bleKeyboardMouse->press(KEY_DOWN_ARROW);
+        bleKeyboardMouse->release(KEY_DOWN_ARROW);
         delay(100);
     }
     delay(500);
 
-    bleKeyboard->press(KEY_RETURN);
-    bleKeyboard->releaseAll();
+    bleKeyboardMouse->press(KEY_RETURN);
+    bleKeyboardMouse->releaseAll();
 }
