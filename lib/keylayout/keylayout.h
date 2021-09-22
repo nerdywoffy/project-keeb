@@ -1,4 +1,4 @@
-#include "../ESP32-BLE-KeyboardMouse/BleKeyboardMouse.h"
+#include "../blekeyboardmouse/BleKeyboardMouse.h"
 
 #ifndef KEYLAYOUT
 #define KEYLAYOUT

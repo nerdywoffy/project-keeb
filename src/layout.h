@@ -37,9 +37,14 @@ int ENCODER_PIN_A = 22;
 // ENCODER_PIN_B Encoder Pin B
 int ENCODER_PIN_B = 21;
 
-// ENCODER_KEY_A Encoder Key A
+// ENCODER_ACTION_A Encoder Action A 
+const RotaryEncoderAction ENCODER_ACTION_A = KeyPress;
+// ENCODER_ACTION_A Encoder Action B
+const RotaryEncoderAction ENCODER_ACTION_B = KeyPress;
+
+// ENCODER_KEY_A Encoder Key A (Only if action is KeyPress)
 const uint8_t *ENCODER_KEY_A = KEY_MEDIA_VOLUME_DOWN;
-// ENCODER_KEY_A Encoder Key B
+// ENCODER_KEY_A Encoder Key B (Only if action is KeyPress)
 const uint8_t *ENCODER_KEY_B = KEY_MEDIA_VOLUME_UP;
 
 #endif

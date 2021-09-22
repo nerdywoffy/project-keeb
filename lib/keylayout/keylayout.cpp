@@ -1,5 +1,5 @@
 #include "keylayout.h"
-#include "../ESP32-BLE-KeyboardMouse/BleKeyboardMouse.h"
+#include "../blekeyboardmouse/BleKeyboardMouse.h"
 
 // _None a function that shortcut KeyLayout object creation with KeyLayoutType::None
 // used to make layout.h more "humanly-readable"

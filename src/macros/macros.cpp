@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "../../lib/ESP32-BLE-KeyboardMouse/BleKeyboardMouse.h"
+#include "../../lib/blekeyboardmouse/BleKeyboardMouse.h"
 
 void summon_tasque_manager(BleKeyboardMouse* bleKeyboardMouse) {
     // Send CTRL+ALT+DELETE

@@ -1,6 +1,7 @@
 #include <Arduino.h>
-#include "../lib/ESP32-BLE-KeyboardMouse/BleKeyboardMouse.h"
+#include "../lib/blekeyboardmouse/BleKeyboardMouse.h"
 #include "layout.h"
+#include "constants.h"
 #include "../lib/keyboard_matrix_processor/keyboard_matrix_processor.h"
 #include "../lib/keylayout/keylayout.h"
 #include "../lib/encoder/encoder.h"
@@ -66,15 +67,28 @@ void onKeyPressed(int index, KeyLayout whatKey, KeyLayoutState whatState) {
   }
 }
 
+void executeEncoder(RotaryEncoderAction action, const uint8_t* key) {
+  switch(action) {
+    case RotaryEncoderAction::KeyPress:
+      bleKeyboardMouse.press(key);
+      bleKeyboardMouse.release(key);
+      break;
+    case RotaryEncoderAction::ScrollUp:
+      bleKeyboardMouse.mouseMove(0,0,1);
+      break;
+    case RotaryEncoderAction::ScrollDown:
+      bleKeyboardMouse.mouseMove(0,0,-1);
+      break;
+  }
+}
+
 void onEncoderRotated(EncoderMovement encMovement) {
   switch (encMovement) {
     case EncoderMovement::Left:
-      // bleKeyboardMouse.press(ENCODER_KEY_A);
-      // bleKeyboardMouse.release(ENCODER_KEY_A);
-      bleKeyboardMouse.mouseMove(0,0,1);
+      executeEncoder(ENCODER_ACTION_A, ENCODER_KEY_A);
       break;
     case EncoderMovement::Right:
-      bleKeyboardMouse.mouseMove(0,0,-1);
+      executeEncoder(ENCODER_ACTION_B, ENCODER_KEY_B);
       break;
   }
 }
