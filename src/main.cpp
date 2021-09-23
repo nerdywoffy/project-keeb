@@ -71,8 +71,10 @@ void onKeyPressed(int index, KeyLayout whatKey, KeyLayoutState whatState) {
 void executeEncoder(RotaryEncoderAction action, const uint8_t* key) {
   switch(action) {
     case RotaryEncoderAction::KeyPress:
-      bleKeyboardMouse.press(key);
-      bleKeyboardMouse.release(key);
+      if(key != NULL) {
+        bleKeyboardMouse.press(*key);
+        bleKeyboardMouse.release(*key);
+      }
       break;
     case RotaryEncoderAction::ScrollUp:
       bleKeyboardMouse.mouseMove(0,0,1);
