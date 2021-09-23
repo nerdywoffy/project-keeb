@@ -69,6 +69,8 @@ void onKeyPressed(int index, KeyLayout whatKey, KeyLayoutState whatState) {
 }
 
 void executeEncoder(RotaryEncoderAction action, const uint8_t* key) {
+  Serial.printf("Key = %d", *key);
+
   switch(action) {
     case RotaryEncoderAction::KeyPress:
       bleKeyboardMouse.press(key);
@@ -84,8 +86,8 @@ void executeEncoder(RotaryEncoderAction action, const uint8_t* key) {
 }
 
 void executeEncoder(RotaryEncoderAction action, uint8_t key) {
-  const uint8_t *_key = &key;
-  executeEncoder(action, _key);
+  const uint8_t _key = key;
+  executeEncoder(action, &_key);
 }
 
 void onEncoderRotated(EncoderMovement encMovement) {
