@@ -84,18 +84,8 @@ void executeEncoder(RotaryEncoderAction action, const uint8_t* key) {
 }
 
 void executeEncoder(RotaryEncoderAction action, uint8_t key) {
-  switch(action) {
-    case RotaryEncoderAction::KeyPress:
-      bleKeyboardMouse.press(key);
-      bleKeyboardMouse.release(key);
-      break;
-    case RotaryEncoderAction::ScrollUp:
-      bleKeyboardMouse.mouseMove(0,0,1);
-      break;
-    case RotaryEncoderAction::ScrollDown:
-      bleKeyboardMouse.mouseMove(0,0,-1);
-      break;
-  }
+  const uint8_t *_key = &key;
+  executeEncoder(action, _key);
 }
 
 void onEncoderRotated(EncoderMovement encMovement) {
@@ -152,10 +142,10 @@ void setup() {
 
   // Setup secondary encoder, if there's any
   if(SECONDARY_ENCODER_ENABLED) {
-    encoder = Encoder(SECONDARY_ENCODER_PIN_A, SECONDARY_ENCODER_PIN_B);
-    encoder.setDebounce(8);
-    encoder.setOffset(4);
-    encoder.setCallback(&onSecondaryEncoderRotated);
+    secondaryEncoder = Encoder(SECONDARY_ENCODER_PIN_A, SECONDARY_ENCODER_PIN_B);
+    secondaryEncoder.setDebounce(8);
+    secondaryEncoder.setOffset(4);
+    secondaryEncoder.setCallback(&onSecondaryEncoderRotated);
   }
 }
 
