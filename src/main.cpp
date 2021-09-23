@@ -83,6 +83,21 @@ void executeEncoder(RotaryEncoderAction action, const uint8_t* key) {
   }
 }
 
+void executeEncoder(RotaryEncoderAction action, uint8_t key) {
+  switch(action) {
+    case RotaryEncoderAction::KeyPress:
+      bleKeyboardMouse.press(key);
+      bleKeyboardMouse.release(key);
+      break;
+    case RotaryEncoderAction::ScrollUp:
+      bleKeyboardMouse.mouseMove(0,0,1);
+      break;
+    case RotaryEncoderAction::ScrollDown:
+      bleKeyboardMouse.mouseMove(0,0,-1);
+      break;
+  }
+}
+
 void onEncoderRotated(EncoderMovement encMovement) {
   switch (encMovement) {
     case EncoderMovement::Left:
