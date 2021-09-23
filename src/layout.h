@@ -30,7 +30,7 @@ KeyLayout keys[NUMBER_OF_ROWS*NUMBER_OF_COLUMNS] = {
 
 
 // ENCODER_ENABLED Enable Encoder Support
-const bool ENCODER_ENABLED = true;
+const bool ENCODER_ENABLED = false;
 
 // ENCODER_PIN_A Encoder Pin A
 int ENCODER_PIN_A = 22;
@@ -46,5 +46,23 @@ const RotaryEncoderAction ENCODER_ACTION_B = KeyPress;
 const uint8_t *ENCODER_KEY_A = KEY_MEDIA_VOLUME_DOWN;
 // ENCODER_KEY_A Encoder Key B (Only if action is KeyPress)
 const uint8_t *ENCODER_KEY_B = KEY_MEDIA_VOLUME_UP;
+
+// SECONDARY_ENCODER_ENABLED Enable Encoder Support
+const bool SECONDARY_ENCODER_ENABLED = false;
+
+// SECONDARY_ENCODER_PIN_A Encoder Pin A
+int SECONDARY_ENCODER_PIN_A = 22;
+// SECONDARY_ENCODER_PIN_B Encoder Pin B
+int SECONDARY_ENCODER_PIN_B = 21;
+
+// SECONDARY_ENCODER_ACTION_A Encoder Action A 
+const RotaryEncoderAction SECONDARY_ENCODER_ACTION_A = KeyPress;
+// SECONDARY_ENCODER_ACTION_A Encoder Action B
+const RotaryEncoderAction SECONDARY_ENCODER_ACTION_B = KeyPress;
+
+// SECONDARY_ENCODER_KEY_A Encoder Key A (Only if action is KeyPress)
+const uint8_t *SECONDARY_ENCODER_KEY_A = KEY_MEDIA_VOLUME_DOWN;
+// SECONDARY_ENCODER_KEY_A Encoder Key B (Only if action is KeyPress)
+const uint8_t *SECONDARY_ENCODER_KEY_B = KEY_MEDIA_VOLUME_UP;
 
 #endif

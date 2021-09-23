@@ -9,6 +9,7 @@
 KBMatrixProcessor kbmInstance;
 BleKeyboardMouse bleKeyboardMouse;
 Encoder encoder;
+Encoder secondaryEncoder;
 
 void onChordKeyPressed(int index, KeyLayout whatKey, KeyLayoutState whatState) {
   // For chord key, let's pretend we're pressing fast enough and release at the same time
@@ -93,6 +94,18 @@ void onEncoderRotated(EncoderMovement encMovement) {
   }
 }
 
+void onSecondaryEncoderRotated(EncoderMovement encMovement) {
+  switch (encMovement) {
+    case EncoderMovement::Left:
+      executeEncoder(SECONDARY_ENCODER_ACTION_A, SECONDARY_ENCODER_KEY_A);
+      break;
+    case EncoderMovement::Right:
+      executeEncoder(SECONDARY_ENCODER_ACTION_B, SECONDARY_ENCODER_KEY_B);
+      break;
+  }
+}
+
+
 void setup() {
   Serial.begin(115200);
 
@@ -121,6 +134,14 @@ void setup() {
     encoder.setOffset(4);
     encoder.setCallback(&onEncoderRotated);
   }
+
+  // Setup secondary encoder, if there's any
+  if(SECONDARY_ENCODER_ENABLED) {
+    encoder = Encoder(SECONDARY_ENCODER_PIN_A, SECONDARY_ENCODER_PIN_B);
+    encoder.setDebounce(8);
+    encoder.setOffset(4);
+    encoder.setCallback(&onSecondaryEncoderRotated);
+  }
 }
 
 void loop() {
@@ -128,5 +149,9 @@ void loop() {
 
   if(ENCODER_ENABLED) {  
     encoder.poll();
+  }
+
+  if(SECONDARY_ENCODER_ENABLED) {  
+    secondaryEncoder.poll();
   }
 } 
