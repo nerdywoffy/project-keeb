@@ -65,4 +65,23 @@ const uint8_t *SECONDARY_ENCODER_KEY_A = KEY_MEDIA_VOLUME_DOWN;
 // SECONDARY_ENCODER_KEY_A Encoder Key B (Only if action is KeyPress)
 const uint8_t *SECONDARY_ENCODER_KEY_B = KEY_MEDIA_VOLUME_UP;
 
+
+// TERNARY_ENCODER_ENABLED Enable Encoder Support
+const bool TERNARY_ENCODER_ENABLED = false;
+
+// TERNARY_ENCODER_PIN_A Encoder Pin A
+int TERNARY_ENCODER_PIN_A = 22;
+// TERNARY_ENCODER_PIN_B Encoder Pin B
+int TERNARY_ENCODER_PIN_B = 21;
+
+// TERNARY_ENCODER_ACTION_A Encoder Action A 
+const RotaryEncoderAction TERNARY_ENCODER_ACTION_A = KeyPress;
+// TERNARY_ENCODER_ACTION_A Encoder Action B
+const RotaryEncoderAction TERNARY_ENCODER_ACTION_B = KeyPress;
+
+// TERNARY_ENCODER_KEY_A Encoder Key A (Only if action is KeyPress)
+const uint8_t *TERNARY_ENCODER_KEY_A = KEY_MEDIA_VOLUME_DOWN;
+// SECONDARY_ENCODER_KEY_A Encoder Key B (Only if action is KeyPress)
+const uint8_t *TERNARY_ENCODER_KEY_B = KEY_MEDIA_VOLUME_UP;
+
 #endif

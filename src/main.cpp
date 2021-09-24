@@ -10,6 +10,7 @@ KBMatrixProcessor kbmInstance;
 BleKeyboardMouse bleKeyboardMouse;
 Encoder encoder;
 Encoder secondaryEncoder;
+Encoder ternaryEncoder;
 
 void onChordKeyPressed(int index, KeyLayout whatKey, KeyLayoutState whatState) {
   // For chord key, let's pretend we're pressing fast enough and release at the same time
@@ -112,6 +113,18 @@ void onSecondaryEncoderRotated(EncoderMovement encMovement) {
   }
 }
 
+void onTernaryEncoderRotated(EncoderMovement encMovement) {
+  switch (encMovement) {
+    case EncoderMovement::Left:
+      executeEncoder(SECONDARY_ENCODER_ACTION_A, SECONDARY_ENCODER_KEY_A);
+      break;
+    case EncoderMovement::Right:
+      executeEncoder(SECONDARY_ENCODER_ACTION_B, SECONDARY_ENCODER_KEY_B);
+      break;
+  }
+}
+
+
 
 void setup() {
   Serial.begin(115200);
@@ -149,6 +162,15 @@ void setup() {
     secondaryEncoder.setOffset(4);
     secondaryEncoder.setCallback(&onSecondaryEncoderRotated);
   }
+
+  // Setup secondary encoder, if there's any
+  // why people are addicted putting a lot of encoder on their keebs?
+  if(TERNARY_ENCODER_ENABLED) {
+    ternaryEncoder = Encoder(TERNARY_ENCODER_PIN_A, TERNARY_ENCODER_PIN_B);
+    ternaryEncoder.setDebounce(8);
+    ternaryEncoder.setOffset(4);
+    ternaryEncoder.setCallback(&onTernaryEncoderRotated);
+  }
 }
 
 void loop() {
@@ -159,6 +181,10 @@ void loop() {
   }
 
   if(SECONDARY_ENCODER_ENABLED) {  
+    secondaryEncoder.poll();
+  }
+
+  if(TERNARY_ENCODER_ENABLED) {  
     secondaryEncoder.poll();
   }
 } 
